@@ -1,0 +1,9 @@
+language: ruby
+
+services:
+  - docker
+
+script:
+  - docker build -t fritogotlayed/docker-ansible:latest .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push fritogotlayed/docker-ansible:latest
