@@ -4,6 +4,10 @@ services:
   - docker
 
 script:
-  - docker build -t fritogotlayed/docker-ansible:latest .
-  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push fritogotlayed/docker-ansible:latest
+  - docker build -t $DOCKER_USERNAME/docker-ansible:pr-latest .
+
+deploy:
+  provider: script
+  script: bash deploy-script.sh
+  on:
+    branch: master
