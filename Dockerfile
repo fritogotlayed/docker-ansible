@@ -27,8 +27,8 @@ RUN set -x && \
     if [[ ! -e /usr/bin/python ]]; then ln -sf /usr/bin/python3 /usr/bin/python; fi && \
     rm -r /root/.cache && \
     \
-    echo "==> Installing Ansible..."  && \
-    pip3 install ansible==${ANSIBLE_VERSION} && \
+    echo "==> Installing Ansible and dependencies..."  && \
+    pip3 install ansible==${ANSIBLE_VERSION} cryptography==2.5 pycrypto==2.6.1 && \
     \
     echo "==> Cleaning up..."  && \
     apk del build-dependencies && \
