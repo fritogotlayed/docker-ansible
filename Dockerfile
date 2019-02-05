@@ -4,6 +4,9 @@ ENV ANSIBLE_VERSION 2.7.0
 
 RUN set -x && \
     \
+    echo "==> Upgrading apk and system..."  && \
+    apk update && apk upgrade && \
+    \
     echo "==> Adding build-dependencies..."  && \
     apk --update add --virtual build-dependencies \
         gcc \
@@ -13,9 +16,8 @@ RUN set -x && \
         python3-dev \
         make && \
     \
-    echo "==> Upgrading apk and system..."  && \
-    apk update && apk upgrade && \
-    \
+    echo "Installing bash" && \
+    apk add --no-cache bash && \
     echo "Installing python3 and pip3..." && \
     apk add --no-cache python3 && \
     python3 -m ensurepip && \
@@ -36,5 +38,9 @@ RUN set -x && \
     mkdir -p /etc/ansible /ansible && \
     echo "[local]" >> /etc/ansible/hosts && \
     echo "localhost" >> /etc/ansible/hosts
+
+LABEL Maintainer="Frito" \
+    Website="https://github.com/fritogotlayed/docker-ansible" \
+    "Build website"="https://travis-ci.org/fritogotlayed/docker-ansible"
 
 CMD [ "echo", "please enter a command" ]
